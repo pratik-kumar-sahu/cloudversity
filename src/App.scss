@@ -1,0 +1,29 @@
+.container {
+  padding: 1rem;
+  display: flex;
+
+  &__leftContainer {
+    width: 5%;
+    height: 97vh;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    background-color: var(--black);
+  }
+
+  &__mainContainer {
+    width: 70%;
+    height: 97vh;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+    background-color: #fbbf24;
+  }
+
+  &__rightContainer {
+    width: 30%;
+    height: 97vh;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+    background-color: var(--black);
+  }
+}

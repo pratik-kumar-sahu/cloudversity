@@ -1,0 +1,26 @@
+:root {
+  --white: #fff;
+  --black: #4f46e5;
+
+  --grey-light: #e5e7eb;
+  --grey-medium: #9ca3af;
+  --grey-dark: #4b5563;
+
+  --shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
