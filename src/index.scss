@@ -6,7 +6,7 @@
   --grey-medium: #9ca3af;
   --grey-dark: #4b5563;
 
-  --shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -17,10 +17,16 @@
 
 html {
   font-size: 62.5%;
+  font-family: sans-serif;
 }
 
 body {
   font-size: 1.6rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
