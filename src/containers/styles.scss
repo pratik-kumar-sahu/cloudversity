@@ -1,0 +1,41 @@
+.leftContainer {
+  width: 7rem;
+  height: 100%;
+  margin-right: 1rem;
+  padding: 2rem 0;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--primary);
+
+  &__icon {
+    margin: 2rem 0;
+    width: 2.5rem;
+
+    &:first-child {
+      margin: 0 0 5rem 0;
+    }
+
+    &:last-child {
+      margin: 30rem 0;
+    }
+  }
+}
+
+// .mainContainer {
+//   width: 70%;
+//   height: 100%;
+//   margin-right: 1rem;
+//   padding: 2rem;
+//   border-radius: 0.5rem;
+//   background-color: #e5e7eb;
+// }
+
+.rightContainer {
+  width: 30%;
+  height: 100%;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  background-color: var(--primary);
+}
