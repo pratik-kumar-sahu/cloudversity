@@ -1,0 +1,16 @@
+.home {
+  width: 70%;
+  height: 100%;
+  margin-right: 1rem;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: white;
+
+  &__scroll {
+    width: 100%;
+    height: auto;
+    display: flex;
+    overflow: hidden;
+    overflow-x: scroll;
+  }
+}
