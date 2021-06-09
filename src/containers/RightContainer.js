@@ -17,9 +17,15 @@ function RightContainer() {
 
   return (
     <div className="rightContainer">
-      <button onClick={googleLoginHandler}>Login With Google</button>
-      <Link to="/">Home</Link>
-      <Link to="/dashboard">Dashboard</Link>
+      <Link className="rightContainer__btn" onClick={googleLoginHandler}>
+        Login With Google
+      </Link>
+      <Link className="rightContainer__btn" to="/">
+        Home
+      </Link>
+      <Link className="rightContainer__btn" to="/dashboard">
+        Dashboard
+      </Link>
     </div>
   );
 }

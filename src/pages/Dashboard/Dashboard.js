@@ -1,23 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import prev from "../../assets/images/prev.png";
 import next from "../../assets/images/next.png";
 import bell from "../../assets/images/bell.png";
 import CourseCardDB from "../../components/CourseCardDB/CourseCardDB";
 import Search from "../../components/Search/Search";
+import { AuthContext } from "../../contexts/AuthContext";
 import "./Dashboard.scss";
 
 function Dashboard() {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="dashboard">
       <div className="dashboard__welcome">
         <div className="dashboard__welcome-greet">
           <img
             className="dashboard__welcome-greet--userpic"
-            src="https://t4.ftcdn.net/jpg/01/67/07/95/360_F_167079543_Rk1lsNYGxsfbJHXqM4y7voo3cmm1DcpV.jpg"
+            src={user.user.photoURL}
             alt="user-pic"
           />
           <div className="dashboard__welcome-greet--username">
-            Welcome Phoebe
+            Welcome {user.user.displayName}
           </div>
         </div>
         <img
