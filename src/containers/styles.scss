@@ -8,19 +8,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   background-color: var(--grey-dark);
+
+  &__iconsAssemble {
+    display: flex;
+    flex-direction: column;
+  }
 
   &__icon {
     margin: 2rem 0;
     width: 2.5rem;
-
-    &:first-child {
-      margin: 0 0 5rem 0;
-    }
-
-    &:last-child {
-      margin: 30rem 0;
-    }
+    cursor: pointer;
   }
 }
 

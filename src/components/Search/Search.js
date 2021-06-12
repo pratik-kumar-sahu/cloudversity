@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Search.scss";
 
-function Search() {
+export function Search() {
   const [searchText, setSearchText] = useState("");
 
   const handleSubmit = (e) => {
@@ -22,5 +22,3 @@ function Search() {
     </>
   );
 }
-
-export default Search;

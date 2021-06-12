@@ -1,21 +1,29 @@
 import React from "react";
-import home from "../assets/images/home.png";
-import menu from "../assets/images/menu.png";
-import c from "../assets/images/c.png";
-import profile from "../assets/images/profile.png";
-import logout from "../assets/images/logout.png";
+import { Link } from "react-router-dom";
+import images from "../assets/images";
 import "./styles.scss";
 
-function LeftContainer() {
+export function LeftContainer() {
+  const { home, menu, profile, logout } = images;
+
   return (
     <div className="leftContainer">
-      <img className="leftContainer__icon" src={c} alt="c-icon" />
-      <img className="leftContainer__icon" src={home} alt="home-icon" />
-      <img className="leftContainer__icon" src={menu} alt="menu-icon" />
-      <img className="leftContainer__icon" src={profile} alt="profile-icon" />
-      <img className="leftContainer__icon" src={logout} alt="logout-icon" />
+      <div className="leftContainer__iconsAssemble">
+        <Link to="/">
+          <img className="leftContainer__icon" src={home.src} alt={home.alt} />
+        </Link>
+        <Link to="/dashboard">
+          <img className="leftContainer__icon" src={menu.src} alt={menu.alt} />
+        </Link>
+        <Link to="/usertype">
+          <img
+            className="leftContainer__icon"
+            src={profile.src}
+            alt={profile.alt}
+          />
+        </Link>
+      </div>
+      <img className="leftContainer__icon" src={logout.src} alt={logout.alt} />
     </div>
   );
 }
-
-export default LeftContainer;

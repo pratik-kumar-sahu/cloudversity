@@ -4,33 +4,44 @@
 
   &__title {
     height: 6rem;
-    background-color: brown;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    background-color: var(--white);
   }
 
   &__content {
     height: 100vh;
     display: flex;
-    background-color: cadetblue;
+    // background-color: cadetblue;
 
     &-left {
       width: 65%;
-      //   height: 20rem;
+      height: 100%;
       padding: 1rem;
       display: flex;
       flex-direction: column;
-      background-color: chartreuse;
+      // background-color: chartreuse;
 
       &--video {
         width: 100%;
-        height: 50%;
+        height: 60%;
         margin-bottom: 1rem;
-        background-color: crimson;
+        // background-color: crimson;
+
+        & .iframe {
+          & ::-webkit-scrollbar {
+            height: 0;
+            width: 0;
+            background: transparent;
+          }
+        }
       }
 
       &--info {
         width: 100%;
         height: 50%;
-        background-color: darkkhaki;
+        // background-color: darkkhaki;
       }
     }
 

@@ -1,9 +1,20 @@
-import React from "react";
-import CourseCard from "../../components/CourseCard/CourseCard";
-import Search from "../../components/Search/Search";
+import React, { useContext } from "react";
+import { Search, CourseCard } from "../../components";
+import { CourseContext } from "../../contexts/CourseContext";
+import { Link } from "react-router-dom";
 import "./Home.scss";
 
-function Home() {
+export function Home() {
+  const { courses } = useContext(CourseContext);
+  // const [courses, setCourses] = useState([]);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:5233/tut/all-courses")
+  //     .then((res) => res.json())
+  //     .then((data) => setCourses(data.data))
+  //     .catch((err) => console.log(err.message));
+  // }, [setCourses]);
+
   return (
     <div className="home">
       <div className="home__brand">
@@ -20,15 +31,22 @@ function Home() {
         Recommended
       </div>
       <div className="home__scroll">
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
+        {courses.length ? (
+          courses.map((course) => {
+            const id = course._id;
+            return (
+              <Link
+                style={{ color: "inherit", textDecoration: "none" }}
+                key={id}
+                to={`/details/${id}`}
+              >
+                <CourseCard course={course} />
+              </Link>
+            );
+          })
+        ) : (
+          <div>No courses found</div>
+        )}
       </div>
       <div
         style={{
@@ -39,19 +57,7 @@ function Home() {
       >
         Popular
       </div>
-      <div className="home__scroll">
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-        <CourseCard />
-      </div>
+      <div className="home__scroll"></div>
     </div>
   );
 }
-
-export default Home;
