@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router";
 import images from "../../assets/images";
-import { AuthContext } from "../../contexts/AuthContext";
+import { AuthContext } from "../../stateHandling/contexts/AuthContext";
 import "./UserType.scss";
 
 export function UserType({ tutorSelected, studentSelected }) {

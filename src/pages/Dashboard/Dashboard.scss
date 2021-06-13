@@ -4,41 +4,41 @@
   padding: 1rem;
   // background-color: #b9d1ff;
 
-  &__welcome {
-    width: 100%;
-    // height: 15rem;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: var(--grey-light);
+  // &__welcome {
+  //   width: 100%;
+  // height: 15rem;
+  //   margin-bottom: 2rem;
+  //   padding: 1rem;
+  //   border-radius: 0.5rem;
+  //   display: flex;
+  //   align-items: center;
+  //   justify-content: space-between;
+  //   background-color: var(--grey-light);
 
-    &-greet {
-      display: flex;
-      align-items: center;
+  //   &-greet {
+  //     display: flex;
+  //     align-items: center;
 
-      &--userpic {
-        width: 4rem;
-        height: 4rem;
-        margin-right: 1rem;
-        padding: 0.1rem;
-        border-radius: 50%;
-        border: 1px solid var(--white);
-        object-fit: cover;
-      }
+  //     &--userpic {
+  //       width: 4rem;
+  //       height: 4rem;
+  //       margin-right: 1rem;
+  //       padding: 0.1rem;
+  //       border-radius: 50%;
+  //       border: 1px solid var(--white);
+  //       object-fit: cover;
+  //     }
 
-      &--username {
-        font-size: 2rem;
-        font-weight: 700;
-      }
-    }
+  //     &--username {
+  //       font-size: 2rem;
+  //       font-weight: 700;
+  //     }
+  //   }
 
-    &-notification {
-      width: 2rem;
-    }
-  }
+  //   &-notification {
+  //     width: 2rem;
+  //   }
+  // }
 
   &__watching {
     width: 100%;

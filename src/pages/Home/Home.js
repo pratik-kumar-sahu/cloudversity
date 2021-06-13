@@ -1,19 +1,13 @@
 import React, { useContext } from "react";
 import { Search, CourseCard } from "../../components";
-import { CourseContext } from "../../contexts/CourseContext";
 import { Link } from "react-router-dom";
+import { StateContext } from "../../stateHandling/contexts/StateContext";
 import "./Home.scss";
 
 export function Home() {
-  const { courses } = useContext(CourseContext);
-  // const [courses, setCourses] = useState([]);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:5233/tut/all-courses")
-  //     .then((res) => res.json())
-  //     .then((data) => setCourses(data.data))
-  //     .catch((err) => console.log(err.message));
-  // }, [setCourses]);
+  const {
+    state: { courses },
+  } = useContext(StateContext);
 
   return (
     <div className="home">
@@ -40,7 +34,7 @@ export function Home() {
                 key={id}
                 to={`/details/${id}`}
               >
-                <CourseCard course={course} />
+                <CourseCard key={id} course={course} />
               </Link>
             );
           })

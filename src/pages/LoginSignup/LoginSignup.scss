@@ -32,8 +32,9 @@
 /* Wrapper Area */
 .wrapper__area {
   position: relative;
-  width: 800px;
-  height: 650px;
+  width: 700px;
+  height: 600px;
+  margin: 0 auto;
   background-color: var(--white-color);
   box-shadow: 0 0 50px var(--wrapper-shadow-color);
   border: 5px solid var(--wrapper-shadow-color);
@@ -360,7 +361,7 @@ form.sign-up__form {
   padding: 10px;
   text-align: center;
   transition: 1.2s cubic-bezier(0.18, 0.02, 0.36, 0.96);
-  margin-top: 30px;
+  margin-top: 70px;
 }
 .aside__area > div h4 {
   color: var(--white-color);

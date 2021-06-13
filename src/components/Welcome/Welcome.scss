@@ -1,0 +1,34 @@
+.welcome {
+  //   width: 100%;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--grey-light);
+
+  &__greet {
+    display: flex;
+    align-items: center;
+
+    &--userpic {
+      width: 4rem;
+      height: 4rem;
+      margin-right: 1rem;
+      padding: 0.1rem;
+      border-radius: 50%;
+      border: 1px solid var(--white);
+      object-fit: cover;
+    }
+
+    &--username {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+  }
+
+  &__notification {
+    width: 2rem;
+  }
+}

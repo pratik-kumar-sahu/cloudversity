@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import {
   Home,
@@ -6,11 +6,14 @@ import {
   LoginSignup,
   Dashboard,
   UserType,
-  NewCourse,
 } from "../pages";
+import { Welcome } from "../components";
+import { AuthContext } from "../stateHandling/contexts/AuthContext";
+import { NewCourse } from "../pages/NewCourse/NewCourse";
 
 export function MainContainer() {
-  const [selectedUserType, setSelectedUserType] = useState(null);
+  const [selectedUserType, setSelectedUserType] = useState("tut");
+  const { user } = useContext(AuthContext);
 
   const tutorSelected = () => {
     setSelectedUserType("tut");
@@ -22,6 +25,7 @@ export function MainContainer() {
 
   return (
     <div className="mainContainer">
+      {user && <Welcome user={user} />}
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/details/:id" component={CourseDetails} />
