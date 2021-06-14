@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { getCourseById } from "../../stateHandling/utils/serverRequests";
 import "./CourseDetails.scss";
 
 export function CourseDetails({ match }) {
   const [courseDetails, setCourseDetails] = useState(null);
+  const [publicid, setPublicid] = useState(null);
   const id = match.params.id;
 
   useEffect(() => {
-    fetch(`http://localhost:5233/tut/course/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setCourseDetails(data.data);
-      })
-      .catch((err) => console.log(err.message));
+    // fetch(`http://localhost:5233/tut/course/${id}`)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setCourseDetails(data.data);
+    //   })
+    //   .catch((err) => console.log(err.message));
+    getCourseById(id).then((data) => setCourseDetails(data));
   }, [id]);
 
   return (
@@ -32,7 +35,7 @@ export function CourseDetails({ match }) {
                 height: "100%",
               }}
               title="demo"
-              src="https://player.cloudinary.com/embed/?cloud_name=pra5&public_id=rpmszpkd3julms6xkf8j&fluid=true&controls=true&source_types%5B0%5D=mp4"
+              src={`https://player.cloudinary.com/embed/?cloud_name=cloudversity&public_id=nrow1mqjw9ezkhhim7nb&fluid=true&controls=true&source_types%5B0%5D=mp4`}
               allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
               allowFullScreen
               frameBorder="0"
@@ -56,30 +59,17 @@ export function CourseDetails({ match }) {
         <div className="details__content-right">
           <div className="details__content-right--videos">
             <h4>Contents</h4>
-            <div className="video active">
-              <small>Introduction</small>
-              <small>02:30</small>
-            </div>
-            <div className="video">
-              <small>Introduction</small>
-              <small>02:30</small>
-            </div>
-            <div className="video">
-              <small>Introduction</small>
-              <small>02:30</small>
-            </div>
-            <div className="video">
-              <small>Introduction</small>
-              <small>02:30</small>
-            </div>
-            <div className="video">
-              <small>Introduction</small>
-              <small>02:30</small>
-            </div>
-            <div className="video">
-              <small>Introduction</small>
-              <small>02:30</small>
-            </div>
+            {courseDetails &&
+              courseDetails.videos.map((video) => (
+                <div
+                  key={video._id}
+                  className="video"
+                  onClick={() => setPublicid(video.publicId)}
+                >
+                  <small>{video.title}</small>
+                  <small>05:10</small>
+                </div>
+              ))}
           </div>
         </div>
       </div>
