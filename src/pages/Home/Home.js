@@ -1,13 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Search, CourseCard } from "../../components";
-import { Link } from "react-router-dom";
+import { courseActionType } from "../../stateHandling/actionTypes";
+import { AuthContext } from "../../stateHandling/contexts/AuthContext";
 import { StateContext } from "../../stateHandling/contexts/StateContext";
 import "./Home.scss";
 
 export function Home() {
   const {
-    state: { courses },
+    state: { courses, wishListItems },
   } = useContext(StateContext);
+
+  const { user } = useContext(AuthContext);
+  console.log(user);
+
+  // useEffect(() => {
+  //   dispatch({ type: courseActionType.wishList, payload:  });
+  // }, []);
 
   return (
     <div className="home">
@@ -28,15 +36,7 @@ export function Home() {
         {courses.length ? (
           courses.map((course) => {
             const id = course._id;
-            return (
-              <Link
-                style={{ color: "inherit", textDecoration: "none" }}
-                key={id}
-                to={`/details/${id}`}
-              >
-                <CourseCard key={id} course={course} />
-              </Link>
-            );
+            return <CourseCard user={user} key={id} course={course} />;
           })
         ) : (
           <div>No courses found</div>

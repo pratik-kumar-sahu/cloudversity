@@ -35,7 +35,7 @@ export function CourseDetails({ match }) {
                 height: "100%",
               }}
               title="demo"
-              src={`https://player.cloudinary.com/embed/?cloud_name=cloudversity&public_id=nrow1mqjw9ezkhhim7nb&fluid=true&controls=true&source_types%5B0%5D=mp4`}
+              src={`https://player.cloudinary.com/embed/?cloud_name=cloudversity&public_id=tutor%20resources/jablz0fhzndduuzindvy&fluid=true&controls=true&source_types%5B0%5D=mp4`}
               allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
               allowFullScreen
               frameBorder="0"

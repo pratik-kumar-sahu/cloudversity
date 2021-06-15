@@ -9,6 +9,7 @@ export const courseApis = {
     addCourse: `/addcourse`,
     addVideo: `/uploadvideo/:courseId`,
     enrollCourse: `/enroll/:courseId`,
+    addToWishList: `/addtowishlist/:courseId`,
   },
   PATCH: {
     updateCourse: `/updatecourse/:courseId`,
