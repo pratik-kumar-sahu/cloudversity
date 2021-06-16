@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { getCourseById } from "../../stateHandling/utils/serverRequests";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../stateHandling/contexts/AuthContext";
+import {
+  getCourseById,
+  uploadVideo,
+} from "../../stateHandling/utils/serverRequests";
 import "./CourseDetails.scss";
 
 export function CourseDetails({ match }) {
   const [courseDetails, setCourseDetails] = useState(null);
   const [publicid, setPublicid] = useState(null);
+  const [file, setFile] = useState(null);
+  const [videoTitle, setVideoTitle] = useState("");
   const id = match.params.id;
+
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     // fetch(`http://localhost:5233/tut/course/${id}`)
@@ -16,6 +24,12 @@ export function CourseDetails({ match }) {
     //   .catch((err) => console.log(err.message));
     getCourseById(id).then((data) => setCourseDetails(data));
   }, [id]);
+
+  const handleVideoSubmit = (e) => {
+    e.preventDefault();
+    const data = { videoTitle: videoTitle, file: file };
+    uploadVideo(id, user?.user.token, data);
+  };
 
   return (
     <div className="details">
@@ -35,7 +49,11 @@ export function CourseDetails({ match }) {
                 height: "100%",
               }}
               title="demo"
-              src={`https://player.cloudinary.com/embed/?cloud_name=cloudversity&public_id=tutor%20resources/jablz0fhzndduuzindvy&fluid=true&controls=true&source_types%5B0%5D=mp4`}
+              src={
+                publicid
+                  ? `https://player.cloudinary.com/embed/?cloud_name=cloudversity&public_id=tutor%20resources/${publicid}&fluid=true&controls=true&source_types%5B0%5D=mp4`
+                  : null
+              }
               allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
               allowFullScreen
               frameBorder="0"
@@ -57,6 +75,16 @@ export function CourseDetails({ match }) {
           </div>
         </div>
         <div className="details__content-right">
+          <form onSubmit={handleVideoSubmit}>
+            <input
+              type="text"
+              value={videoTitle}
+              onChange={(e) => setVideoTitle(e.target.value)}
+              placeholder="Enter title"
+            />
+            <input type="file" onChange={(e) => setFile(e.target.files[0])} />
+            <input type="submit" />
+          </form>
           <div className="details__content-right--videos">
             <h4>Contents</h4>
             {courseDetails &&

@@ -1,16 +1,22 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { ReactComponent as Heart } from "../../assets/icons/heart.svg";
 import { ReactComponent as HeartFill } from "../../assets/icons/heartFill.svg";
-import "./CourseCard.scss";
 import {
   addToCart,
   addToWishList,
   removeFromCart,
   removeFromWishList,
 } from "../../stateHandling/utils/serverRequests";
+import "./CourseCard.scss";
 
-export function CourseCard({ course, user }) {
+export function CourseCard({
+  course,
+  user,
+  dispatch,
+  isItCartItem,
+  isItWishlistItem,
+}) {
   const {
     _id,
     courseName,
@@ -20,43 +26,51 @@ export function CourseCard({ course, user }) {
     description,
   } = course;
 
-  console.log(user);
+  const [fav, setFav] = useState(isItWishlistItem);
+  const [cart, setCart] = useState(isItCartItem);
+  const history = useHistory();
 
-  const [fav, setFav] = useState(
-    user
-      ? user.user.wishlist.filter((item) => item._id === _id).length
-        ? true
-        : false
-      : false
-  );
-
-  const [cart, setCart] = useState(
-    user
-      ? user.user.cart.filter((item) => item._id === _id).length
-        ? true
-        : false
-      : false
-  );
-
-  const handleFavorites = () => {
-    if (user && fav === false) {
-      addToWishList(_id, user.user.token);
+  useEffect(() => {
+    if (isItWishlistItem) {
       setFav(true);
-    } else if (user) {
-      removeFromWishList(_id, user.user.token);
-      setFav(false);
     } else {
       setFav(false);
+    }
+  }, [isItWishlistItem, setFav]);
+
+  useEffect(() => {
+    if (isItCartItem) {
+      setCart(true);
+    } else {
+      setCart(false);
+    }
+  }, [isItCartItem, setCart]);
+
+  const handleFavorites = () => {
+    if (user) {
+      if (!isItWishlistItem) {
+        addToWishList(_id, user, dispatch);
+        setFav(true);
+      } else {
+        removeFromWishList(_id, user, dispatch);
+        setFav(false);
+      }
+    } else {
+      history.push("/usertype");
     }
   };
 
   const handleCart = () => {
-    if (user && !cart) {
-      addToCart(_id, user.user.token);
-      setCart(true);
-    } else if (user) {
-      removeFromCart(_id, user.user.token);
-      setCart(false);
+    if (user) {
+      if (!isItCartItem) {
+        addToCart(_id, user, dispatch);
+        setCart(true);
+      } else {
+        removeFromCart(_id, user, dispatch);
+        setCart(false);
+      }
+    } else {
+      history.push("/usertype");
     }
   };
 
@@ -88,22 +102,24 @@ export function CourseCard({ course, user }) {
             </div>
           </div>
         </Link>
-        <div className="course__hover-btns">
-          <button onClick={handleCart}>
-            {cart ? "Remove from Cart" : "Add to Cart"}
-          </button>
-          {fav ? (
-            <HeartFill
-              onClick={handleFavorites}
-              className="course__hover-btns--icon"
-            />
-          ) : (
-            <Heart
-              onClick={handleFavorites}
-              className="course__hover-btns--icon"
-            />
-          )}
-        </div>
+        {user?.user.role === "student" ? (
+          <div className="course__hover-btns">
+            <button onClick={handleCart}>
+              {cart ? "Remove from Cart" : "Add to Cart"}
+            </button>
+            {fav ? (
+              <HeartFill
+                onClick={handleFavorites}
+                className="course__hover-btns--icon"
+              />
+            ) : (
+              <Heart
+                onClick={handleFavorites}
+                className="course__hover-btns--icon"
+              />
+            )}
+          </div>
+        ) : null}
       </div>
     </div>
   );

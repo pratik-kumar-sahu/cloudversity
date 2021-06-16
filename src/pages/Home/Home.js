@@ -1,21 +1,32 @@
 import React, { useContext, useEffect } from "react";
 import { Search, CourseCard } from "../../components";
-import { courseActionType } from "../../stateHandling/actionTypes";
 import { AuthContext } from "../../stateHandling/contexts/AuthContext";
 import { StateContext } from "../../stateHandling/contexts/StateContext";
+import {
+  fetchCartFromDB,
+  fetchCoursesFromDB,
+  fetchWishListFromDB,
+} from "../../stateHandling/utils/serverRequests";
 import "./Home.scss";
 
 export function Home() {
   const {
-    state: { courses, wishListItems },
+    state: { courses, wishListItems, cartItems },
   } = useContext(StateContext);
 
+  const { dispatch } = useContext(StateContext);
   const { user } = useContext(AuthContext);
-  console.log(user);
 
-  // useEffect(() => {
-  //   dispatch({ type: courseActionType.wishList, payload:  });
-  // }, []);
+  useEffect(() => {
+    fetchCoursesFromDB(dispatch);
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (user) {
+      fetchWishListFromDB(user, dispatch);
+      fetchCartFromDB(user, dispatch);
+    }
+  }, [user, dispatch]);
 
   return (
     <div className="home">
@@ -36,7 +47,21 @@ export function Home() {
         {courses.length ? (
           courses.map((course) => {
             const id = course._id;
-            return <CourseCard user={user} key={id} course={course} />;
+            const isItWishlistItem = !!wishListItems?.filter(
+              (item) => item === id
+            ).length;
+            const isItCartItem = !!cartItems?.filter((item) => item === id)
+              .length;
+            return (
+              <CourseCard
+                key={id}
+                course={course}
+                user={user}
+                dispatch={dispatch}
+                isItCartItem={isItCartItem}
+                isItWishlistItem={isItWishlistItem}
+              />
+            );
           })
         ) : (
           <div>No courses found</div>

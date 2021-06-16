@@ -8,7 +8,7 @@ import "./Dashboard.scss";
 export function Dashboard() {
   const { user } = useContext(AuthContext);
 
-  const { prev, next, bell } = images;
+  const { prev, next } = images;
 
   return user ? (
     <div className="dashboard">

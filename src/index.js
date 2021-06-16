@@ -7,11 +7,11 @@ import "./index.scss";
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <StateContextProvider>
+    <StateContextProvider>
+      <AuthContextProvider>
         <App />
-      </StateContextProvider>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </StateContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

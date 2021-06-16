@@ -55,6 +55,7 @@ export function LoginSignup({ selectedUserType }) {
   // ----------- Function for Sign In ------- /
   function handleLoginSubmit(e) {
     e.preventDefault();
+    setLoginMessage("");
     const formdata = formData;
     userLogin(formdata, selectedUserType, dispatch);
     // console.log("Form data: ", formdata);
