@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { Redirect } from "react-router";
 import { addCourse } from "../../stateHandling/utils/serverRequests";
 import { AuthContext } from "../../stateHandling/contexts/AuthContext";
 import "./NewCourse.scss";
@@ -30,7 +31,7 @@ export function NewCourse() {
     // const token = user.user.token;
     // console.log(token);
     // addCourse(formData, file, token);
-    
+
     const token = user.user.token;
     console.log(formData);
     addCourse(formData, file, token);
@@ -44,7 +45,7 @@ export function NewCourse() {
     console.log(file);
   };
 
-  return (
+  return user?.user.role === "tutor" ? (
     <div className="newCourse">
       <div className="newCourse__header">
         <h3>Add New Course</h3>
@@ -75,13 +76,18 @@ export function NewCourse() {
           />
         </div>
         <div className="newCourse__form_group">
-          <div className="newCourse__label ">Thumbnail 
+          <div className="newCourse__label ">
+            Thumbnail
             <div className="newCourse__file_upload">
-              <input name="thumbnail" onChange={handleFileChange} type="file" required/>
-              <i className='bx bxs-cloud-upload '></i>
+              <input
+                name="thumbnail"
+                onChange={handleFileChange}
+                type="file"
+                required
+              />
+              <i className="bx bxs-cloud-upload "></i>
             </div>
           </div>
-          
         </div>
         <div className="newCourse__form_group">
           <div className="newCourse__label"> Description</div>
@@ -93,7 +99,7 @@ export function NewCourse() {
             onChange={handleChange}
             placeholder="Tell us about the course..."
             required
-          > </textarea>
+          ></textarea>
         </div>
         <div className="newCourse__form_group">
           <div className="newCourse__label">Category</div>
@@ -105,7 +111,7 @@ export function NewCourse() {
             onChange={handleChange}
             placeholder="eg. Web development, Animations, Android development, etc..."
             required
-          /> 
+          />
         </div>
         <div className="newCourse__form_group">
           <div className="newCourse__label">Level</div>
@@ -117,14 +123,18 @@ export function NewCourse() {
             placeholder="Give level..."
             required
           >
-            <option value="" selected disabled>Difficulty?</option>
-            <option value="Beginner" >Beginner</option>
+            <option value="" defaultValue disabled>
+              Difficulty?
+            </option>
+            <option value="Beginner">Beginner</option>
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
           </select>
         </div>
-        <button type="submit"> Add Course </button> 
+        <button type="submit"> Add Course </button>
       </form>
     </div>
+  ) : (
+    <Redirect to="/usertype" />
   );
 }

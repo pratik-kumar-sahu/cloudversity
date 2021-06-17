@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Redirect } from "react-router";
 import images from "../../assets/images";
 import { CourseCardDB, Search } from "../../components";
+import { TutorDashboard } from "../TutorDashboard/TutorDashboard";
 import { AuthContext } from "../../stateHandling/contexts/AuthContext";
 import "./Dashboard.scss";
 
@@ -10,7 +11,9 @@ export function Dashboard() {
 
   const { prev, next } = images;
 
-  return user ? (
+  return !user ? (
+    <Redirect to="/usertype" />
+  ) : user?.user.role === "student" ? (
     <div className="dashboard">
       <div className="dashboard__watching">
         <CourseCardDB />
@@ -46,6 +49,6 @@ export function Dashboard() {
       </div>
     </div>
   ) : (
-    <Redirect to="/usertype" />
+    <TutorDashboard user={user} />
   );
 }
