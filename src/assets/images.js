@@ -14,6 +14,8 @@ const images = {
   student: { id: 10, src: `${url}/student.jpg`, alt: "student-icon" },
   tutor: { id: 11, src: `${url}/tutor.jpg`, alt: "tutor-icon" },
   fire: { id: 12, src: `${url}/fire.png`, alt: "rating-icon" },
+  back: { id: 13, src: `${url}/back.png`, alt: "back-icon" },
+  forward: { id: 14, src: `${url}/forward.png`, alt: "forward-icon" },
 };
 
 export default images;

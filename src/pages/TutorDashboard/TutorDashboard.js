@@ -1,12 +1,16 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { TutorCard } from "../../components/TutorCard/TutorCard";
+import { deleteCourseFromDB } from "../../stateHandling/utils/serverRequests";
 import "./TutorDashboard.scss";
 
 export function TutorDashboard({ user }) {
   const {
-    user: { createdCourses },
+    user: { createdCourses, token },
   } = user;
+  const [id, setId] = useState(null);
+  const history = useHistory();
 
   const [stats, setStats] = useState({
     enrolled: "",
@@ -24,15 +28,23 @@ export function TutorDashboard({ user }) {
       earning: 0,
       wishlist: wishlistedBy.length,
     });
+    setId(id);
+  };
+
+  const deleteCourse = (courseId) => {
+    console.log(courseId);
+    if (window.confirm("Are you sure to delete your course?")) {
+      deleteCourseFromDB(courseId, token);
+      history.push("/");
+    }
   };
 
   return (
     <div className="tutor">
       <div className="tutor__row1">
         <Link className="tutor__row1-btn" to="/newcourse">
-          Add a Course
+          Create a new Course
         </Link>
-        <Link className="tutor__row1-btn">Update a Course</Link>
       </div>
       <div className="tutor__row2">
         <div className="tutor__row2__left">
@@ -50,25 +62,46 @@ export function TutorDashboard({ user }) {
           </div>
         </div>
         <div className="tutor__row2__right">
-          <div className="tutor__row2__right-stats">
-            <p style={{ fontSize: "2.5rem", fontWeight: "600" }}>
-              {stats.enrolled}
-            </p>
-            <p>Enrolled Students</p>
-          </div>
-          {/* <div style={{ width: "1rem" }}></div> */}
-          <div className="tutor__row2__right-stats">
-            <p style={{ fontSize: "2.5rem", fontWeight: "600" }}>
-              {stats.earning}
-            </p>
-            <p>Total Earnings</p>
-          </div>
-          <div className="tutor__row2__right-stats">
-            <p style={{ fontSize: "2.5rem", fontWeight: "600" }}>
-              {stats.wishlist}
-            </p>
-            <p>Wishlisted students</p>
-          </div>
+          {stats.enrolled === "" ? (
+            <div className="tutor__row2__right-empty">Your Stats</div>
+          ) : (
+            <>
+              <Link
+                to={`/updatecourse/${id}`}
+                className="tutor__row2__right-stats remove-style"
+              >
+                Update Course
+              </Link>
+              <Link
+                to="#"
+                className="tutor__row2__right-stats remove-style"
+                onClick={() => deleteCourse(id)}
+              >
+                Delete Course
+              </Link>
+              <Link to="/" className="tutor__row2__right-stats remove-style">
+                Update Thumbnail
+              </Link>
+              <div className="tutor__row2__right-stats">
+                <p style={{ fontSize: "2.5rem", fontWeight: "600" }}>
+                  {stats.enrolled}
+                </p>
+                <p>Enrolled Students</p>
+              </div>
+              <div className="tutor__row2__right-stats">
+                <p style={{ fontSize: "2.5rem", fontWeight: "600" }}>
+                  {stats.earning}
+                </p>
+                <p>Total Earnings</p>
+              </div>
+              <div className="tutor__row2__right-stats">
+                <p style={{ fontSize: "2.5rem", fontWeight: "600" }}>
+                  {stats.wishlist}
+                </p>
+                <p>Wishlisted students</p>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

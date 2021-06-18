@@ -1,7 +1,7 @@
 .welcome {
   //   width: 100%;
   margin: 1rem;
-  padding: 1rem;
+  padding: 1rem 0 1rem 1rem;
   border-radius: 1rem;
   display: flex;
   justify-content: space-between;
@@ -28,7 +28,17 @@
     }
   }
 
-  &__notification {
-    width: 2rem;
+  &__icons {
+    display: flex;
+
+    &-icon {
+      width: 3.5rem;
+      height: 3.5rem;
+      cursor: pointer;
+
+      &:first-child {
+        margin-right: 1rem;
+      }
+    }
   }
 }

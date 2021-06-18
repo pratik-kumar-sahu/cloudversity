@@ -6,6 +6,7 @@ import {
   LoginSignup,
   Dashboard,
   UserType,
+  UpdateCourse,
 } from "../pages";
 import { Welcome } from "../components";
 import { AuthContext } from "../stateHandling/contexts/AuthContext";
@@ -40,6 +41,7 @@ export function MainContainer() {
         </Route>
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/newcourse" component={NewCourse} />
+        <Route path="/updatecourse/:id" component={UpdateCourse} />
       </Switch>
     </div>
   );

@@ -225,6 +225,54 @@ export const addCourse = async (formData, file, token) => {
   } catch (err) {}
 };
 
+export const updateCourse = async (formData, file, token, id) => {
+  try {
+    formData.thumbnail = file;
+    formData.price = parseInt(formData.price);
+    formData.course_duration = parseInt(formData.course_duration);
+    formData.discount = parseInt(formData.discount);
+    console.log(formData);
+    console.log("File inside addCourse call :", file);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = async () => {
+      const data = await axios({
+        method: "PATCH",
+        url: `https://cloudversity-api-server.herokuapp.com/updatecourse/${id}`,
+        data: { ...formData, thumbnail: reader.result },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(data);
+    };
+    reader.onerror = () => {
+      console.error("Couldn't process the image");
+    };
+  } catch (err) {}
+};
+
+export const deleteCourseFromDB = async (id, token) => {
+  try {
+    const data = await axios({
+      method: "DELETE",
+      url: `https://cloudversity-api-server.herokuapp.com/deletecourse/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(data);
+    // if (data) {
+    //   if (selectedUserType === "tut") {
+    //     dispatch({ type: tutorActionType.verifyTutor, payload: data });
+    //   } else {
+    //     dispatch({ type: studentActionType.verifyStudent, payload: data });
+    //   }
+    // }
+  } catch (err) {}
+};
+
 export const uploadVideo = async (id, token, data) => {
   try {
     console.log(data);
