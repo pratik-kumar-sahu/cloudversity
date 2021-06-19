@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { TutorCard } from "../../components/TutorCard/TutorCard";
-import { deleteCourseFromDB } from "../../stateHandling/utils/serverRequests";
+import { StateContext } from "../../stateHandling/contexts/StateContext";
+import {
+  deleteCourseFromDB,
+  fetchCreatedCoursesFromDB,
+} from "../../stateHandling/utils/serverRequests";
 import "./TutorDashboard.scss";
 
 export function TutorDashboard({ user }) {
-  const {
-    user: { createdCourses, token },
-  } = user;
   const [id, setId] = useState(null);
   const history = useHistory();
+
+  const {
+    state: { createdCourses },
+    dispatch,
+  } = useContext(StateContext);
 
   const [stats, setStats] = useState({
     enrolled: "",
@@ -18,8 +24,12 @@ export function TutorDashboard({ user }) {
     wishlist: "",
   });
 
+  useEffect(() => {
+    fetchCreatedCoursesFromDB(user, dispatch);
+  }, [user, dispatch]);
+
   const handleStats = (id) => {
-    const { enrolledStudents, wishlistedBy } = user.user.createdCourses.filter(
+    const { enrolledStudents, wishlistedBy } = createdCourses.filter(
       (e) => e._id === id
     )[0];
 
@@ -34,8 +44,8 @@ export function TutorDashboard({ user }) {
   const deleteCourse = (courseId) => {
     console.log(courseId);
     if (window.confirm("Are you sure to delete your course?")) {
-      deleteCourseFromDB(courseId, token);
-      history.push("/");
+      deleteCourseFromDB(courseId, user, dispatch);
+      history.push("/dashboard");
     }
   };
 

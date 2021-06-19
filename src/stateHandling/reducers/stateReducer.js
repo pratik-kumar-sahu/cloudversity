@@ -15,6 +15,9 @@ export const stateReducer = (state, action) => {
     case courseActionType.getCart:
       return { ...state, cartItems: action.payload };
 
+    case "FETCH_CREATED_COURSES":
+      return { ...state, createdCourses: action.payload };
+
     default:
       break;
   }

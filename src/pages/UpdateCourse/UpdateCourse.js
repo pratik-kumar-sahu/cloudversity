@@ -4,12 +4,15 @@ import { updateCourse } from "../../stateHandling/utils/serverRequests";
 import { AuthContext } from "../../stateHandling/contexts/AuthContext";
 import { StateContext } from "../../stateHandling/contexts/StateContext";
 import "./UpdateCourse.scss";
+import { useHistory } from "react-router-dom";
 
 export function UpdateCourse({ match }) {
   const { user } = useContext(AuthContext);
   const {
     state: { courses },
+    dispatch,
   } = useContext(StateContext);
+  const history = useHistory();
 
   const paramsId = match.params.id;
 
@@ -26,9 +29,8 @@ export function UpdateCourse({ match }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const token = user.user.token;
-    console.log(formData);
-    updateCourse(formData, file, token, paramsId);
+    updateCourse(formData, file, user, dispatch, paramsId);
+    history.push("/dashboard");
   };
 
   const handleFileChange = (e) => {

@@ -2,11 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Search, CourseCard } from "../../components";
 import { AuthContext } from "../../stateHandling/contexts/AuthContext";
 import { StateContext } from "../../stateHandling/contexts/StateContext";
-import {
-  fetchCartFromDB,
-  fetchCoursesFromDB,
-  fetchWishListFromDB,
-} from "../../stateHandling/utils/serverRequests";
+import { fetchCoursesFromDB } from "../../stateHandling/utils/serverRequests";
 import "./Home.scss";
 
 export function Home() {
@@ -20,13 +16,6 @@ export function Home() {
   useEffect(() => {
     fetchCoursesFromDB(dispatch);
   }, [dispatch]);
-
-  useEffect(() => {
-    if (user) {
-      fetchWishListFromDB(user, dispatch);
-      fetchCartFromDB(user, dispatch);
-    }
-  }, [user, dispatch]);
 
   return (
     <div className="home">

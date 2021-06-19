@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router";
 import images from "../../assets/images";
+import { StateContext } from "../../stateHandling/contexts/StateContext";
 import "./Welcome.scss";
 
-const { back, forward } = images;
+const { back, forward, cart, heart } = images;
 
 export function Welcome({ user: { user } }) {
   const { firstName, lastName, profileImg } = user;
   const history = useHistory();
+
+  const {
+    state: { cartItems, wishListItems },
+  } = useContext(StateContext);
 
   return (
     <div className="welcome">
@@ -24,16 +29,36 @@ export function Welcome({ user: { user } }) {
         <div className="welcome__greet--username">{`Welcome ${firstName} ${lastName}`}</div>
       </div>
       <div className="welcome__icons">
-        <span onClick={history.goBack}>
+        {user.role === "student" && (
+          <>
+            <div className="position">
+              <img
+                className="welcome__icons-heart"
+                src={heart.src}
+                alt={heart.alt}
+              />
+              <p className="welcome__icons-count">{wishListItems.length}</p>
+            </div>
+            <div className="position">
+              <img
+                className="welcome__icons-cart"
+                src={cart.src}
+                alt={cart.alt}
+              />
+              <p className="welcome__icons-count">{cartItems.length}</p>
+            </div>
+          </>
+        )}
+        <div onClick={history.goBack}>
           <img className="welcome__icons-icon" src={back.src} alt={back.alt} />
-        </span>
-        <span onClick={history.goForward}>
+        </div>
+        <div onClick={history.goForward}>
           <img
             className="welcome__icons-icon"
             src={forward.src}
             alt={forward.alt}
           />
-        </span>
+        </div>
         {/* <img className="welcome__notification" src={bell.src} alt={bell.alt} /> */}
       </div>
     </div>

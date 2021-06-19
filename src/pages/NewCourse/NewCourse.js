@@ -1,11 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Redirect } from "react-router";
+import { Redirect, useHistory } from "react-router";
 import { addCourse } from "../../stateHandling/utils/serverRequests";
 import { AuthContext } from "../../stateHandling/contexts/AuthContext";
 import "./NewCourse.scss";
+import { StateContext } from "../../stateHandling/contexts/StateContext";
 
 export function NewCourse() {
   const { user } = useContext(AuthContext);
+  const { dispatch } = useContext(StateContext);
+  const history = useHistory();
 
   const [file, setFile] = useState(null);
   const [formData, setFormData] = useState({
@@ -31,10 +34,10 @@ export function NewCourse() {
     // const token = user.user.token;
     // console.log(token);
     // addCourse(formData, file, token);
-
-    const token = user.user.token;
     console.log(formData);
-    addCourse(formData, file, token);
+    if (addCourse(formData, file, user, dispatch)) {
+      history.push("/dashboard");
+    }
   };
 
   const handleFileChange = (e) => {

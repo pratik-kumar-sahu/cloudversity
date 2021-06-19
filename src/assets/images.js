@@ -16,6 +16,10 @@ const images = {
   fire: { id: 12, src: `${url}/fire.png`, alt: "rating-icon" },
   back: { id: 13, src: `${url}/back.png`, alt: "back-icon" },
   forward: { id: 14, src: `${url}/forward.png`, alt: "forward-icon" },
+  cart: { id: 15, src: `${url}/cart.png`, alt: "cart-icon" },
+  love: { id: 16, src: `${url}/love.png`, alt: "love-icon" },
+  like: { id: 17, src: `${url}/like.png`, alt: "like-icon" },
+  heart: { id: 18, src: `${url}/heart.png`, alt: "heart-icon" },
 };
 
 export default images;

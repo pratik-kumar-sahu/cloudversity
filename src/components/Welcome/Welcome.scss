@@ -30,6 +30,49 @@
 
   &__icons {
     display: flex;
+    align-items: center;
+
+    &-cart {
+      width: 3rem;
+      height: 3rem;
+      margin-right: 2rem;
+    }
+
+    &-heart {
+      width: 2.8rem;
+      height: 2.8rem;
+      margin-right: 2rem;
+    }
+
+    &-count {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      position: absolute;
+      top: -5px;
+      right: 10px;
+      background-color: white;
+    }
+
+    // &-count2 {
+    //   width: 2rem;
+    //   height: 2rem;
+    //   font-weight: 600;
+    //   border-radius: 50%;
+    //   display: flex;
+    //   justify-content: center;
+    //   align-items: center;
+    //   font-size: 1.2rem;
+    //   position: absolute;
+    //   top: 4px;
+    //   right: 25px;
+    //   color: white;
+    //   // background-color: white;
+    // }
 
     &-icon {
       width: 3.5rem;
@@ -41,4 +84,8 @@
       }
     }
   }
+}
+
+.position {
+  position: relative;
 }

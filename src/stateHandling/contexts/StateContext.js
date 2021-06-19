@@ -8,6 +8,7 @@ function StateContextProvider({ children }) {
     courses: [],
     wishListItems: [],
     cartItems: [],
+    createdCourses: [],
   };
 
   const [state, dispatch] = useReducer(stateReducer, initialState);

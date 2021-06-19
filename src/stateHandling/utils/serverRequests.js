@@ -64,7 +64,7 @@ export const addToWishList = async (id, user, dispatch) => {
       },
     });
     console.log(data);
-    if (data.wishListed) {
+    if (data) {
       fetchWishListFromDB(user, dispatch);
     }
   } catch (err) {
@@ -83,7 +83,7 @@ export const removeFromWishList = async (id, user, dispatch) => {
       },
     });
     console.log(data);
-    if (data.wishListed) {
+    if (data) {
       fetchWishListFromDB(user, dispatch);
     }
   } catch (err) {
@@ -108,6 +108,25 @@ export const fetchCartFromDB = async (user, dispatch) => {
     dispatch({
       type: courseActionType.getCart,
       payload: fetchUserData[0].cart,
+    });
+  } catch (err) {}
+};
+
+export const fetchCreatedCoursesFromDB = async (user, dispatch) => {
+  try {
+    const {
+      user: { _id },
+    } = user;
+    const {
+      data: { data },
+    } = await axios({
+      method: "GET",
+      url: `${base_url}/tut/alltutors`,
+    });
+    const fetchUserData = data.filter((e) => e._id === _id)[0];
+    dispatch({
+      type: "FETCH_CREATED_COURSES",
+      payload: fetchUserData.createdCourses,
     });
   } catch (err) {}
 };
@@ -196,7 +215,7 @@ export const userSignup = async (formData, selectedUserType, dispatch) => {
   } catch (err) {}
 };
 
-export const addCourse = async (formData, file, token) => {
+export const addCourse = async (formData, file, user, dispatch) => {
   try {
     formData.thumbnail = file;
     formData.price = parseInt(formData.price);
@@ -214,10 +233,12 @@ export const addCourse = async (formData, file, token) => {
         url: `https://cloudversity-api-server.herokuapp.com/addcourse`,
         data: { ...formData, thumbnail: reader.result },
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user.user.token}`,
         },
       });
       console.log(data);
+      await fetchCreatedCoursesFromDB(user, dispatch);
+      return true;
     };
     reader.onerror = () => {
       console.error("Couldn't process the image");
@@ -225,7 +246,7 @@ export const addCourse = async (formData, file, token) => {
   } catch (err) {}
 };
 
-export const updateCourse = async (formData, file, token, id) => {
+export const updateCourse = async (formData, file, user, dispatch, id) => {
   try {
     formData.thumbnail = file;
     formData.price = parseInt(formData.price);
@@ -242,10 +263,11 @@ export const updateCourse = async (formData, file, token, id) => {
         url: `https://cloudversity-api-server.herokuapp.com/updatecourse/${id}`,
         data: { ...formData, thumbnail: reader.result },
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user.user.token}`,
         },
       });
       console.log(data);
+      await fetchCreatedCoursesFromDB(user, dispatch);
     };
     reader.onerror = () => {
       console.error("Couldn't process the image");
@@ -253,16 +275,17 @@ export const updateCourse = async (formData, file, token, id) => {
   } catch (err) {}
 };
 
-export const deleteCourseFromDB = async (id, token) => {
+export const deleteCourseFromDB = async (id, user, dispatch) => {
   try {
     const data = await axios({
       method: "DELETE",
       url: `https://cloudversity-api-server.herokuapp.com/deletecourse/${id}`,
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${user.user.token}`,
       },
     });
     console.log(data);
+    await fetchCreatedCoursesFromDB(user, dispatch);
     // if (data) {
     //   if (selectedUserType === "tut") {
     //     dispatch({ type: tutorActionType.verifyTutor, payload: data });
@@ -290,4 +313,47 @@ export const uploadVideo = async (id, token, data) => {
       console.log(datas);
     };
   } catch (err) {}
+};
+
+export const deleteVideo = async (videoId, token) => {
+  try {
+    const data = await axios({
+      method: "DELETE",
+      url: `${base_url}/deletevideo/${videoId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log(data);
+    return data;
+  } catch (err) {
+    console.log("Error Occured: ", err);
+    return null;
+  }
+};
+
+export const postReview = async (courseId, reviewData, token) => {
+  try {
+    console.log("reviewData inside postReview: ", courseId, token, reviewData);
+    const res = await axios({
+      method: "POST",
+      url: `${base_url}/addreview/${courseId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: reviewData,
+    });
+
+    if (res.status === 200) {
+      console.log("review posted successfully");
+      return res;
+    } else {
+      console.log("Error while posting the review");
+      return res;
+    }
+  } catch (error) {
+    console.log("Error while posting review", error);
+    return null;
+  }
 };
