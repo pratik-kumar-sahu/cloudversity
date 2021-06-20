@@ -49,6 +49,7 @@
   &__container {
     width: 100%;
     // height: 15rem;
+    height: 8vh;
     margin: 0.5rem 0;
     padding: 1rem;
     border-radius: 0.5rem;
@@ -73,6 +74,51 @@
         outline-style: none;
         border-style: none;
         background-color: var(--black);
+      }
+    }
+  }
+
+  &__discussion {
+    width: 100%;
+    // height: 40rem;
+    height: 61.5vh;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: var(--grey-light);
+  }
+
+  &__lastViewed {
+    width: 100%;
+    // height: 14.5rem;
+    height: 22.5vh;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: var(--grey-light);
+
+    &-heading {
+      font-weight: 600;
+      color: var(--grey-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    &-course {
+      width: 100%;
+      height: 10rem;
+      border-radius: 1rem;
+      padding: 1rem;
+      display: flex;
+      text-decoration: none;
+      color: inherit;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      background-color: var(--white);
+
+      &--img {
+        width: 8rem;
+        height: 8rem;
+        border-radius: 0.5rem;
+        object-fit: cover;
       }
     }
   }

@@ -112,25 +112,6 @@ export const fetchCartFromDB = async (user, dispatch) => {
   } catch (err) {}
 };
 
-export const fetchCreatedCoursesFromDB = async (user, dispatch) => {
-  try {
-    const {
-      user: { _id },
-    } = user;
-    const {
-      data: { data },
-    } = await axios({
-      method: "GET",
-      url: `${base_url}/tut/alltutors`,
-    });
-    const fetchUserData = data.filter((e) => e._id === _id)[0];
-    dispatch({
-      type: "FETCH_CREATED_COURSES",
-      payload: fetchUserData.createdCourses,
-    });
-  } catch (err) {}
-};
-
 export const addToCart = async (id, user, dispatch) => {
   try {
     const { data } = await axios({
@@ -160,6 +141,70 @@ export const removeFromCart = async (id, user, dispatch) => {
     if (data) {
       fetchCartFromDB(user, dispatch);
     }
+  } catch (err) {}
+};
+
+export const fetchEnrolledCoursesFromDB = async (user, dispatch) => {
+  try {
+    const {
+      user: { _id },
+    } = user;
+    const {
+      data: { studentInfo },
+    } = await axios({
+      method: "GET",
+      url: `${base_url}/stu/${_id}`,
+    });
+
+    dispatch({
+      type: "FETCH_ENROLLED_COURSES",
+      payload: studentInfo.enrolledCourses,
+    });
+  } catch (err) {}
+};
+
+export const fetchCreatedCoursesFromDB = async (user, dispatch) => {
+  try {
+    const {
+      user: { _id },
+    } = user;
+    const {
+      data: { data },
+    } = await axios({
+      method: "GET",
+      url: `${base_url}/tut/alltutors`,
+    });
+    const fetchUserData = data.filter((e) => e._id === _id)[0];
+    dispatch({
+      type: "FETCH_CREATED_COURSES",
+      payload: fetchUserData.createdCourses,
+    });
+  } catch (err) {}
+};
+
+export const fetchLastViewedCourse = async (
+  user,
+  dispatch,
+  setLastViewedCourse
+) => {
+  try {
+    const {
+      data: { studentInfo },
+    } = await axios({
+      method: "GET",
+      url: `${base_url}/stu/${user.user._id}`,
+    });
+    const {
+      data: { data },
+    } = await axios({
+      method: "GET",
+      url: `${base_url}/allcourses`,
+    });
+    const fetchedCourse = data.filter(
+      (e) => e._id === studentInfo.lastViewedCourse[0]
+    )[0];
+    setLastViewedCourse(fetchedCourse);
+    // dispatch({type: 'FETCH_LAST_VIEWED_COURSE', payload:})
   } catch (err) {}
 };
 
@@ -305,7 +350,7 @@ export const uploadVideo = async (id, token, data) => {
       const datas = await axios({
         method: "POST",
         url: `${base_url}/uploadvideo/${id}`,
-        data: { ...data, file: reader.result },
+        data: { ...data, videoLink: reader.result },
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -314,7 +359,6 @@ export const uploadVideo = async (id, token, data) => {
     };
   } catch (err) {}
 };
-
 export const deleteVideo = async (videoId, token) => {
   try {
     const data = await axios({

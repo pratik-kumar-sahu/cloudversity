@@ -77,6 +77,12 @@ export function TutorDashboard({ user }) {
           ) : (
             <>
               <Link
+                to={`/details/${id}`}
+                className="tutor__row2__right-stats remove-style"
+              >
+                Course Details
+              </Link>
+              <Link
                 to={`/updatecourse/${id}`}
                 className="tutor__row2__right-stats remove-style"
               >

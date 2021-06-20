@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../stateHandling/contexts/AuthContext";
+import { StateContext } from "../stateHandling/contexts/StateContext";
+import { base_url } from "../stateHandling/utils/apis";
+import { fetchLastViewedCourse } from "../stateHandling/utils/serverRequests";
 
 export function RightContainer() {
+  const { user } = useContext(AuthContext);
+
+  const [lastViewedCourse, setLastViewedCourse] = useState(null);
+
+  const { dispatch } = useContext(StateContext);
+
+  useEffect(() => {
+    fetchLastViewedCourse(user, dispatch, setLastViewedCourse);
+  }, []);
+
   return (
     <div className="rightContainer">
       {/* <h3>toggle</h3> */}
@@ -10,21 +25,24 @@ export function RightContainer() {
           <button>Discussion</button>
         </div>
       </div>
-      <div className="rightContainer__container">
-        <p style={{ fontSize: "3rem", fontWeight: "600" }}>11</p>
-        <p>Enrolled Courses</p>
+      <div className="rightContainer__discussion">
+        <div className="rightContainer__discussion-btn"></div>
       </div>
-      <div className="rightContainer__container">
-        <p style={{ fontSize: "3rem", fontWeight: "600" }}>50</p>
-        <p>Reviews given</p>
-      </div>
-      <div className="rightContainer__container">
-        <p style={{ fontSize: "3rem", fontWeight: "600" }}>4</p>
-        <p>Items in Wishlist</p>
-      </div>
-      <div className="rightContainer__container">
-        <p style={{ fontSize: "3rem", fontWeight: "600" }}>10</p>
-        <p>Items in Cart</p>
+      <div className="rightContainer__lastViewed">
+        <div className="rightContainer__lastViewed-heading">Last Viewed</div>
+        <Link
+          to={`/details/${lastViewedCourse?._id}`}
+          className="rightContainer__lastViewed-course"
+        >
+          <img
+            className="rightContainer__lastViewed-course--img"
+            src={`${lastViewedCourse?.thumbnail}`}
+            alt="course-pic"
+          />
+          <div className="rightContainer__lastViewed-course--name">
+            {lastViewedCourse?.courseName}
+          </div>
+        </Link>
       </div>
     </div>
   );

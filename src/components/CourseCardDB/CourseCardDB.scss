@@ -4,14 +4,14 @@
   height: auto;
   margin-bottom: 1rem;
   padding: 1rem 2rem 1rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   display: flex;
   justify-content: space-between;
   // flex-wrap: wrap;
   align-items: center;
   // box-shadow: var(--shadow);
   // overflow: hidden;
-  background-color: var(--grey-light);
+  background-color: var(--white);
 
   &__img {
     width: 6rem;
@@ -54,7 +54,7 @@
   &__viewBtn {
     font-size: 1.5rem;
     font-weight: 400;
-    padding: 1rem 1.5rem;
+    // padding: 1rem 1.5rem;
     border-radius: 0.5rem;
     color: white;
     border-style: none;

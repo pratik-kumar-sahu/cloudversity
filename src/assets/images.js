@@ -20,6 +20,7 @@ const images = {
   love: { id: 16, src: `${url}/love.png`, alt: "love-icon" },
   like: { id: 17, src: `${url}/like.png`, alt: "like-icon" },
   heart: { id: 18, src: `${url}/heart.png`, alt: "heart-icon" },
+  detail: { id: 19, src: `${url}/detail.png`, alt: "detail-icon" },
 };
 
 export default images;
