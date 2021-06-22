@@ -68,11 +68,19 @@ form.sign-up__form {
   margin-top: -650px;
 }
 /* Form Title */
-form .form__title {
+.form__title {
   font-size: 45px;
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 40px;
+
+  &_login-message {
+    margin-bottom: 1rem;
+    transition: 0.3s;
+    text-align: center;
+    width: 100%;
+    color: red;
+  }
 }
 .sign-up__form .form__title {
   /* Sign Up Form Title */

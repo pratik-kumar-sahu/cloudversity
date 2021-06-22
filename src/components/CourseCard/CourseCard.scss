@@ -39,6 +39,9 @@
     &-author {
       font-size: 1.3rem;
       margin: 0.5rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
       & span {
         font-weight: 600;

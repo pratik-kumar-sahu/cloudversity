@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import images from "../../assets/images";
+import { AuthContext } from "../../stateHandling/contexts/AuthContext";
 import "./CourseCardDB.scss";
 
-export function CourseCardDB({ course }) {
-  const { web_dev, clock, detail } = images;
+export function CourseCardDB({ course, updateLastestViewedCourse }) {
+  const { user } = useContext(AuthContext);
 
+  const { web_dev, clock, detail } = images;
   const { courseName, thumbnail, course_duration } = course;
 
   return (
@@ -38,6 +40,7 @@ export function CourseCardDB({ course }) {
           className="coursedb__time-icon"
           src={detail.src}
           alt={detail.alt}
+          onClick={() => updateLastestViewedCourse(course._id, user)}
         />
       </Link>
     </div>

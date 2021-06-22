@@ -4,7 +4,11 @@ import { authReducer } from "../reducers/authReducer";
 export const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
-  const [user, dispatch] = useReducer(authReducer, null);
+  const [user, dispatch] = useReducer(authReducer, null, () => {
+    const data = localStorage.getItem("userInfo");
+    return data ? JSON.parse(data) : null;
+  });
+
   console.log("AuthContext", user);
 
   return (

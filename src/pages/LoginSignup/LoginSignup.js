@@ -7,6 +7,7 @@ import {
   userLogin,
   userSignup,
 } from "../../stateHandling/utils/serverRequests";
+import GooglePassword from "../../googleUserCrud";
 
 export function LoginSignup({ selectedUserType }) {
   const [formData, setFormData] = useState({
@@ -25,23 +26,38 @@ export function LoginSignup({ selectedUserType }) {
   const googleSuccess = async (res) => {
     console.log("Logged in with Google o Auth...");
     const result = res?.profileObj;
+
+    const formdata = {
+      firstName: result.givenName,
+      lastName: result.familyName,
+      email: result.email,
+      password: GooglePassword,
+    };
+
     const token = res?.tokenId;
 
-    try {
-      dispatch({
-        type: "VERIFY_USER",
-        payload: result,
-      });
-      console.log(
-        "Result from google : ",
-        result,
-        "TOKEN from google: ",
-        token
-      );
-      history.push("/dashboard");
-    } catch (error) {
-      console.log(error);
+    const resp = await userLogin(formdata, selectedUserType, dispatch);
+    if (resp === "Email not registered") {
+      await userSignup(formdata, selectedUserType, dispatch);
+    } else {
+      console.log("error occured");
     }
+
+    // try {
+    //   dispatch({
+    //     type: "VERIFY_USER",
+    //     payload: result,
+    //   });
+    //   console.log(
+    //     "Result from google : ",
+    //     result,
+    //     "TOKEN from google: ",
+    //     token
+    //   );
+    //   history.push("/dashboard");
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const googleError = () => {
@@ -53,85 +69,27 @@ export function LoginSignup({ selectedUserType }) {
   }
 
   // ----------- Function for Sign In ------- /
-  function handleLoginSubmit(e) {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    setLoginMessage("");
     const formdata = formData;
-    userLogin(formdata, selectedUserType, dispatch);
-    // console.log("Form data: ", formdata);
-    // fetch(`http://localhost:5233/${selectedUserType}/login`, {
-    //   method: "POST",
-    //   mode: "cors",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(formdata),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.error) {
-    //       console.log("Login failed...", data);
-    //       setLoginMessage(data.error);
-    //       return;
-    //     }
-    //     // console.log("Data pushed successfully, user logged in", data);
-    //     dispatch({
-    //       type: "VERIFY_USER",
-    //       payload: {
-    //         name: `${data.tutorInfo.firstName} ${data.tutorInfo.lastName}`,
-    //         imageUrl: `https://ui-avatars.com/api/?name=${data.tutorInfo.firstName}`,
-    //       },
-    //     });
-    //     history.push("/dashboard");
-    //   })
-    //   .catch((err) => {
-    //     console.log("Error in login", err);
-    //   });
-  }
+    const res = await userLogin(formdata, selectedUserType, dispatch);
+    setLoginMessage(res);
+  };
 
   // ----------- Function for Sign Up ------- /
 
-  function handleSignup(e) {
+  const handleSignup = async (e) => {
     e.preventDefault();
     const formdata = formData;
-
     if (formData.password !== formData.confirm_password) {
       setSignupMessage("Password Mismatch, please try again");
       return;
     }
-
-    userSignup(formdata, selectedUserType, dispatch);
-
-    // fetch(`http://localhost:5233/${selectedUserType}/signup`, {
-    //   method: "POST",
-    //   mode: "cors",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(formdata),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     if (data.error) {
-    //       console.log("Signup failed...", data);
-    //       setSignupMessage(data.error);
-    //       return;
-    //     }
-    //     console.log("Data pushed successfully, user signed up", data);
-    //     dispatch({
-    //       type: "VERIFY_USER",
-    //       payload: {
-    //         name: `${data.data.firstName} ${data.data.lastName}`,
-    //         imageUrl: `https://ui-avatars.com/api/?name=${data.data.firstName}`,
-    //       },
-    //     });
-    //     setSignupMessage("Successfully Signed up! CLick on Login button");
-    //     history.push("/dashboard");
-    //   })
-    //   .catch((err) => {
-    //     console.log("Error in login", err);
-    //     setSignupMessage("Unknown error occurred...");
-    //   });
-  }
+    const res = await userSignup(formdata, selectedUserType, dispatch);
+    setSignupMessage(res);
+  };
 
   function showHidePassword(e) {
-    // console.log("show hide icon's parent's parent: ",e.target.parentElement.parentElement)
     if (e.target.className === "bx bx-hide") {
       e.target.className = "bx bx-show";
       e.target.parentElement.parentElement
@@ -146,15 +104,11 @@ export function LoginSignup({ selectedUserType }) {
   }
 
   function changeFormMode(e) {
-    // console.log(e.target.id);
     const wrapper__Area = document.querySelector("#wrapper_Area");
-    // console.log("Wrapper area: ", wrapper__Area);
     if (e.target.id === "aside_signUp_Btn") {
-      //   console.log("aside_signup_btn clicked");
       wrapper__Area.classList.add("sign-up__Mode-active");
     }
     if (e.target.id === "aside_signIn_Btn") {
-      //   console.log("Sign in btn clicked");
       wrapper__Area.classList.remove("sign-up__Mode-active");
     }
   }
@@ -184,7 +138,9 @@ export function LoginSignup({ selectedUserType }) {
               onSubmit={handleLoginSubmit}
             >
               <h1 className="form__title">Sign In!</h1>
-              {LoginMessage && <span>{LoginMessage}</span>}
+              {LoginMessage && (
+                <p className="form__title_login-message">{LoginMessage}</p>
+              )}
               <div className="input__group">
                 <label className="field">
                   <input

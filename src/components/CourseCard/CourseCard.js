@@ -22,8 +22,10 @@ export function CourseCard({
     courseName,
     thumbnail,
     authorName: { firstName, lastName },
-    course_duration,
+    courseDuration,
     description,
+    enrolledStudents,
+    price,
   } = course;
 
   const [fav, setFav] = useState(isItWishlistItem);
@@ -79,8 +81,8 @@ export function CourseCard({
       <img className="course__img" src={thumbnail} alt="course-pic" />
       <div className="course__contents">
         <div className="course__contents-details">
-          <p>700 students</p>
-          <p>{course_duration}</p>
+          <p>{enrolledStudents.length} students</p>
+          <p>{courseDuration ? courseDuration.toFixed(2) : "00"} min.</p>
         </div>
         <div className="course__contents-name">
           {courseName.length > 15
@@ -91,6 +93,7 @@ export function CourseCard({
           <p>
             by <span>{`${firstName} ${lastName}`}</span>
           </p>
+          <h4 style={{ borderBottom: "1px solid #000" }}>${price}</h4>
         </div>
       </div>
       <div className="course__hover">

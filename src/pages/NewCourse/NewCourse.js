@@ -34,10 +34,12 @@ export function NewCourse() {
     // const token = user.user.token;
     // console.log(token);
     // addCourse(formData, file, token);
+
     console.log(formData);
     if (addCourse(formData, file, user, dispatch)) {
       history.push("/dashboard");
     }
+
   };
 
   const handleFileChange = (e) => {
@@ -79,6 +81,7 @@ export function NewCourse() {
           />
         </div>
         <div className="newCourse__form_group">
+
           <div className="newCourse__label ">
             Thumbnail
             <div className="newCourse__file_upload">
@@ -91,6 +94,7 @@ export function NewCourse() {
               <i className="bx bxs-cloud-upload "></i>
             </div>
           </div>
+
         </div>
         <div className="newCourse__form_group">
           <div className="newCourse__label"> Description</div>
@@ -102,7 +106,9 @@ export function NewCourse() {
             onChange={handleChange}
             placeholder="Tell us about the course..."
             required
+
           ></textarea>
+
         </div>
         <div className="newCourse__form_group">
           <div className="newCourse__label">Category</div>
@@ -126,15 +132,19 @@ export function NewCourse() {
             placeholder="Give level..."
             required
           >
+
             <option value="" defaultValue disabled>
               Difficulty?
             </option>
             <option value="Beginner">Beginner</option>
+
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
           </select>
         </div>
+
         <button type="submit"> Add Course </button>
+
       </form>
     </div>
   ) : (

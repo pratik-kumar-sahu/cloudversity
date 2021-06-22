@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: space-between;
   background-color: var(--grey-dark);
+  transition: all 0.3s ease-in-out;
 
   &__iconsAssemble {
     display: flex;
@@ -20,7 +21,40 @@
     margin: 2rem 0;
     width: 2.5rem;
     cursor: pointer;
+    position: relative;
+
+    &-info1 {
+      position: absolute;
+      top: 50px;
+      left: 60px;
+    }
+
+    &-info2 {
+      position: absolute;
+      top: 118px;
+      left: 60px;
+    }
+
+    &-info3 {
+      position: absolute;
+      top: 188px;
+      left: 60px;
+    }
+
+    &-info4 {
+      position: absolute;
+      top: 577px;
+      left: 60px;
+    }
   }
+}
+
+.info {
+  z-index: 10;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--grey-dark);
+  border-radius: 0.5rem;
+  background-color: var(--white);
 }
 
 .mainContainer {
@@ -32,6 +66,7 @@
   overflow: hidden;
   overflow-y: scroll;
   background-color: var(--white);
+  transition: all 0.3s ease-in-out;
 }
 
 .rightContainer {
@@ -45,6 +80,7 @@
   flex-direction: column;
   border: 1px solid var(--grey-medium);
   background-color: var(--white);
+  transition: all 0.3s ease-in-out;
 
   &__container {
     width: 100%;
@@ -78,13 +114,103 @@
     }
   }
 
-  &__discussion {
+  &__profile {
     width: 100%;
     // height: 40rem;
     height: 61.5vh;
+    padding: 1rem;
     margin-bottom: 0.5rem;
     border-radius: 0.5rem;
     background-color: var(--grey-light);
+  }
+
+  &__discussion {
+    width: 100%;
+    // height: 40rem;
+    height: 90vh;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: var(--grey-light);
+
+    &-header {
+      width: 100%;
+      height: 8%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0.5rem;
+      border-radius: 0.5rem;
+      background-color: var(--white);
+
+      &--img {
+        width: 2.5rem;
+        height: 2.5rem;
+        cursor: pointer;
+        margin-right: 1rem;
+      }
+    }
+
+    &-chatsRoomBox {
+      width: 100%;
+      height: 91%;
+      padding: 0.5rem 0.5rem 0 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      overflow-y: scroll;
+      background-color: var(--white);
+    }
+
+    &-messageBox {
+      width: 100%;
+      height: 82%;
+      padding: 0.5rem 0.5rem 0 0.5rem;
+      margin-bottom: 0.5rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      overflow-y: scroll;
+      background-color: var(--white);
+
+      &--chats {
+        width: 100%;
+        // height: 4.5rem;
+        padding: 1rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        color: var(--white);
+        background-color: royalblue;
+      }
+    }
+
+    &-footer {
+      width: 100%;
+      height: 8%;
+      border-radius: 0.5rem;
+      background-color: var(--white);
+
+      &--form {
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+        outline-style: none;
+        border-style: none;
+      }
+
+      &--input {
+        width: 100%;
+        height: 100%;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        outline-style: none;
+        border-style: none;
+      }
+    }
   }
 
   &__lastViewed {
@@ -130,4 +256,53 @@
   //   text-decoration: none;
   //   color: var(--white);
   // }
+}
+
+.messageBox {
+  transition: all 0.3s ease-in-out;
+
+  &__sender {
+    min-width: 51%;
+    max-width: 91%;
+    text-align: end;
+    padding: 1rem;
+    float: right;
+    margin-bottom: 0.5rem;
+    border-radius: 1.5rem 0 1.5rem 1.5rem;
+    color: var(--white);
+    background-color: #7c3aed;
+
+    &-time {
+      text-align: end;
+      font-size: 1.1rem;
+      margin-top: 0.3rem;
+    }
+  }
+
+  &__receiver {
+    min-width: 51%;
+    max-width: 91%;
+    padding: 1rem;
+    float: left;
+    margin-bottom: 0.5rem;
+    border-radius: 0 1.5rem 1.5rem 1.5rem;
+    color: var(--white);
+    background-color: #4f46e5;
+
+    &-author {
+      font-size: 1.1rem;
+      display: inline-block;
+      padding: 0.3rem 0.5rem;
+      border-radius: 0.5rem;
+      margin-bottom: 0.3rem;
+      color: var(--grey-darkest);
+      background-color: var(--white);
+    }
+
+    &-time {
+      text-align: end;
+      font-size: 1.1rem;
+      margin-top: 0.3rem;
+    }
+  }
 }
