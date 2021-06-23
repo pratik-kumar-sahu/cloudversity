@@ -114,6 +114,17 @@
     }
   }
 
+  &__menu {
+    width: 100%;
+    // height: 40rem;
+    height: 90vh;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: var(--grey-light);
+  }
+
   &__profile {
     width: 100%;
     // height: 40rem;

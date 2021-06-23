@@ -18,7 +18,8 @@ function App() {
       <BrowserRouter>
         <LeftContainer darkTheme={darkTheme} setDarkTheme={setDarkTheme} />
         <MainContainer />
-        {user && <RightContainer />}
+        {/* {user && <RightContainer />} */}
+        <RightContainer />
       </BrowserRouter>
     </div>
   );

@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import images from "../../assets/images";
 import { Search, CourseCard } from "../../components";
 import { AuthContext } from "../../stateHandling/contexts/AuthContext";
 import { StateContext } from "../../stateHandling/contexts/StateContext";
+import { CarouselFunc } from "../../components";
 import { fetchCoursesFromDB } from "../../stateHandling/utils/serverRequests";
-import { popularCourses } from "./filterFunctions";
 import "./Home.scss";
 
 export function Home() {
@@ -13,28 +14,29 @@ export function Home() {
   const { dispatch } = useContext(StateContext);
   const { user } = useContext(AuthContext);
 
-  const scrollOnClick = useRef(null);
+  const { popular, rated, free, paid, newC } = images;
+
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  console.log(filteredCourses);
 
   useEffect(() => {
     fetchCoursesFromDB(dispatch);
   }, [dispatch]);
 
   useEffect(() => {
-    const popular = popularCourses(courses);
-    console.log(popular);
+    if (courses.length) {
+      setFilteredCourses(courses);
+    }
   }, [courses]);
-
-  const scrollHandler = (val) => {
-    scrollOnClick.current.scrollLeft += val;
-  };
 
   return (
     <div className="home">
-      <div className="home__brand">
+      <CarouselFunc />
+      {/* <div className="home__brand">
         <h2>CloudVersity</h2>
         <Search />
-      </div>
-      <div
+      </div> */}
+      {/* <div
         style={{
           margin: "0 0 1rem 0",
           borderBottom: "1px solid black",
@@ -42,18 +44,92 @@ export function Home() {
         }}
       >
         Recommended
+      </div> */}
+
+      <div className="home__filterIcons">
+        <div
+          className="home__filterIcons-content all"
+          onClick={() => setFilteredCourses(courses)}
+        >
+          All
+        </div>
+        <div
+          className="home__filterIcons-content popular"
+          onClick={() =>
+            setFilteredCourses(
+              [...courses].filter(
+                (course) => course.enrolledStudents.length >= 1
+              )
+            )
+          }
+        >
+          <img src={popular.src} alt={popular.alt} />
+          <p>Popular</p>
+        </div>
+        <div
+          className="home__filterIcons-content rated"
+          onClick={() =>
+            setFilteredCourses(
+              [...courses].filter((course) => course.rating >= 1)
+            )
+          }
+        >
+          <img src={rated.src} alt={rated.alt} />
+          <p>Highest Rated</p>
+        </div>
+        <div className="home__filterIcons-content new">
+          <img src={newC.src} alt={newC.alt} />
+          <p>Recently Added</p>
+        </div>
+        <div
+          className="home__filterIcons-content paid"
+          onClick={() =>
+            setFilteredCourses(
+              [...courses].filter((course) => course.price > 0)
+            )
+          }
+        >
+          <img src={paid.src} alt={paid.alt} />
+          <p>Paid</p>
+        </div>
+        <div
+          className="home__filterIcons-content free"
+          onClick={() =>
+            setFilteredCourses(
+              [...courses].filter((course) => course.price === 0)
+            )
+          }
+        >
+          <img src={free.src} alt={free.alt} />
+          <p>Free</p>
+        </div>
+        <div
+          className="home__filterIcons-content"
+          onClick={() =>
+            setFilteredCourses(
+              [...filteredCourses].sort((a, b) => b.price - a.price)
+            )
+          }
+        >
+          HiToLo
+        </div>
+        <div
+          className="home__filterIcons-content"
+          onClick={() =>
+            setFilteredCourses(
+              [...filteredCourses].sort((a, b) => a.price - b.price)
+            )
+          }
+        >
+          LoToHi
+        </div>
+        <Search setFilteredCourses={setFilteredCourses} />
       </div>
 
       <div className="home__scroll">
-        <button
-          className="home__scroll-btns"
-          onClick={() => scrollHandler(-800)}
-        >
-          👈
-        </button>
-        <div className="home__scroll-list" ref={scrollOnClick}>
-          {courses.length ? (
-            courses.map((course) => {
+        <div className="home__scroll-grid">
+          {filteredCourses.length ? (
+            filteredCourses.map((course) => {
               const id = course._id;
               const isItWishlistItem = !!wishListItems?.filter(
                 (item) => item._id === id
@@ -76,15 +152,9 @@ export function Home() {
             <div>No courses found</div>
           )}
         </div>
-        <button
-          className="home__scroll-btns"
-          onClick={() => scrollHandler(800)}
-        >
-          👉
-        </button>
       </div>
 
-      <div
+      {/* <div
         style={{
           margin: "1rem 0 0 0",
           borderBottom: "1px solid black",
@@ -93,7 +163,7 @@ export function Home() {
       >
         Popular
       </div>
-      <div className="home__scroll"></div>
+      <div className="home__scroll"></div> */}
     </div>
   );
 }

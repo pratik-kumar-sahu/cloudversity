@@ -22,8 +22,53 @@
     align-items: center;
   }
 
+  &__filterIcons {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    &-content {
+      padding: 0.5rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      display: flex;
+      margin-bottom: 1rem;
+      justify-content: space-between;
+      align-items: center;
+
+      & > img {
+        width: 2.5rem;
+      }
+    }
+  }
+
   &__scroll {
     display: flex;
+
+    &-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      margin: 0 auto;
+    }
+
+    @media (min-width: 600px) {
+      &-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 950px) {
+      &-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1130px) {
+      &-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
 
     &-list {
       width: 100%;
@@ -43,4 +88,34 @@
       border-style: none;
     }
   }
+}
+
+.all {
+  // width: 4rem;
+  border: 1px solid red;
+}
+
+.popular {
+  width: 10rem;
+  border: 1px solid brown;
+}
+
+.rated {
+  width: 14.5rem;
+  border: 1px solid royalblue;
+}
+
+.free {
+  width: 8rem;
+  border: 1px solid green;
+}
+
+.paid {
+  width: 7.5rem;
+  border: 1px solid orange;
+}
+
+.new {
+  width: 16.5rem;
+  border: 1px solid purple;
 }

@@ -6,3 +6,4 @@ export * from "./TutorCard/TutorCard";
 export * from "./Discussion/ChatRoom";
 export * from "./Discussion/ReceivedMessage";
 export * from "./Discussion/SentMessage";
+export * from "./Carousel/Carousel";

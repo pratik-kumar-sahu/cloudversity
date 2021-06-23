@@ -25,7 +25,7 @@ export function LeftContainer({ darkTheme, setDarkTheme }) {
 
   useEffect(() => {
     const token = user?.user.token;
-    console.log(token);
+    // console.log(token);
     if (token) {
       const decodedToken = decode(token);
       if (decodedToken.exp * 1000 < new Date().getTime()) handleLogout();
