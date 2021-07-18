@@ -1,70 +1,195 @@
-# Getting Started with Create React App
+<h1 align="center">
+  <img src="./src/assets/images/logo.jpg" width="150px"/><br/>
+  <strong><a href="https://cloudversity.netlify.app/">Cloudversity | The Cloud University</a></strong>
+</h1>
+<p align="center">Cloudversity is an e-learning platform. The sole purpose of making this web-app is to minimize the gap between a student and a tutor by providing them a mediator learning platform. This is a full-stack web-app where a user can register him/ herself via Email / Google Login as a Tutor or a Student. A user can search courses, apply filters i.e. free, paid, popular and more. It has lots of features inspired by Udemy platform.
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## 📋 **Table of Contents**
 
-In the project directory, you can run:
+- Project Title and Description
+- Table of Contents
+- Quick Installation
+- Front-End
+  - Stacks Used
+  - Features
+- Back-End
+  - Stacks Used
+  - API Endpoints
+- Hosted Links
+- Authors
+- License
+<!-- - Demo-preview -->
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## ⚡ **Quick Installation**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Make sure that you have [Git](https://git-scm.com/downloads) & [Node](https://nodejs.org) installed. Node LTS version 14.15.3 or above is required.
+- VS Code or any IDE with git bash setup.
 
-### `npm test`
+Clone this repo or download zip
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+git clone <repo-url>
+```
 
-### `npm run build`
+> **FrontEnd**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Go inside `front-end` folder in terminal
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+cd <folderName>
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Install all the dependencies
 
-### `npm run eject`
+```
+npm install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+To run app
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+npm start
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+> **BackEnd**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Go inside `server` folder in terminal and install all the dependencies by performing same steps as above.
 
-## Learn More
+To run server
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+npm run dev
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<!-- # Demo-Preview -->
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## ⚛️ **Front-End**
 
-### Analyzing the Bundle Size
+### ⚙️ Stacks Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `React` - Provides with a SPA setup using `npx create-react-app <project-name>`
+- `React Hooks` - For managing state
+- `Context APIs and Reducers` - For handling State Management in the app
+- Packages used:
+  - `react-dom` - For rendering the index.js
+  - `react-router-dom` - For routing
+  - `axios` - A package for calling apis
+  - `node-sass` - To compile .scss files to .css
+  - `firebase` - To handle real-time chat section
+  - `jwt-decode` - To decode and check the authenticity of tokens
+  - `react-google-login` - To provide Google SignIn / SignUp option
+  - `react-responsive-carousel` - It provides carousel with lots of features like auto scrolling
+  - `react-stripe-checkout` - It provides interface for making a payment
 
-### Making a Progressive Web App
+### 🎯 Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- User authentications using email and google
+- Search and Filter Courses
+- Tutor and Student Dashboard with Stats
+- Student's profile with add to Wishlist, add to Cart & enrolling options with payment
+- Tutor's profile with Add, Update & Delete Course options
+- Discussion section for creating chat rooms
+- Course Details page with list of videos, video player & reviews
+- Light & Dark Mode
+- LocalStorage implementation for logged users
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🚀 **Back-End**
 
-### Deployment
+### ⚙️ Stacks Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- `NodeJS` - For writing all backend logic
+- `Express` - For creating routes / api endpoints
+- `MongoDB Atlas` - For storing data
+- `Cloudinary` - For storing videos and online streaming
+- `Heroku` - For hosting cloudversity backend
+- Packages used:
+  - `bcryptJS` - For encryting passwords
+  - `cookie-parser`
+  - `cors`
+  - `datauri`
+  - `dotenv`
+  - `jsonwebtoken`
+  - `mongoose`
+  - `multer`
+  - `stripe`
 
-### `npm run build` fails to minify
+### 🖥️ API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Base Url** --> `https://cloudversity-api-server.herokuapp.com/`
+- **Courses apis**
+
+  - GET
+    - `/allcourses` (Get all courses)
+    - `/courses/:courseId` (Get course by id)
+  - POST
+    - `/addcourse` (Add new course)
+    - `/uploadvideo/:courseId` (Add videos in a course)
+    - `/enroll/:courseId` (Enroll a course)
+    - `/applydiscount/:courseId` (Apply discount to a course)
+  - PATCH
+    - `/updatecourse/:courseId` (Update a course)
+    - `/updatethumbnail/:courseId` (Update thumbnail of a course)
+  - DELETE
+    - `/deletecourse/:courseId` (Delete a course)
+    - `/deletevideo/:videoId` (Delete a video)
+
+- **Tutor apis**
+
+  - GET
+    - `/tut/alltutors` (Get all tutors)
+  - POST
+    - `/tut/login` (Registered tutor login)
+    - `/tut/signup` (For new tutor registration)
+
+- **Student apis**
+
+  - GET
+    - `/stu/allstudents` (Get all registered students)
+    - `/stu/:studentId` (Get student by id)
+  - POST
+    - `/stu/login` (Registered student login)
+    - `/stu/signup` (For new tutor registration)
+    - `/stu/addtowishlist/:courseId` (Add a course to wishlist)
+    - `/stu/addtocart/:courseId` (Add a course to cart)
+    - `/stu/latestcourse/:courseId` (Add recent viewed course)
+  - PATCH
+    - `/stu/removefromcart/:courseId` (Remove course from cart)
+  - DELETE
+    - `/stu/removefromwishlist/:courseId` (Remove course from wishlist)
+
+- **Reviews apis**
+
+  - GET
+    - `/allreviews/:courseId` (Get all reviews by course id)
+  - POST
+    - `/addreview/:courseId` (Post a review)
+  - PATCH
+    - `/editreview/:reviewId` (Update a review)
+  - DELETE
+    - `/deletereview/:reviewId` (Delete a review)
+
+- **Other apis**
+
+  - POST
+
+    - `/payment` (For making a payment)
+
+  - PATCH
+    - `/updateprofile/:userId` (For updating user's profile)
+    - `/updatedp/:userId` (For updating user's photo)
+
+---
+
+## 🔗 **Hosted Links**
+
+- Cloudversity Website: https://cloudversity.netlify.app/
+- Cloudversity Server: https://cloudversity-api-server.herokuapp.com/
